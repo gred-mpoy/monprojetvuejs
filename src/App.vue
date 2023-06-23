@@ -1,26 +1,57 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  
+  <div class="container">
+
+    <h1> Application de tâche</h1>
+    <form @submit.prevent="ajouterTache">
+      <input type="text" v-model="nouvelleTache" placeholder="Ajouter une nouvelle tâche">
+      <button type="submit">Ajouter</button>
+    </form>
+
+    <ul>
+      <li v-for="(tache, index) in taches" :key="index" :class="{fait: tache.realiser}">
+        <input type="checkbox" v-model="tache.realiser">
+        {{ tache.titre }}
+        <button @click="supprimerTache(index)">Supprimer</button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+export default{
+  data(){
+    return{
+      nouvelleTache: '',
+      taches:[]
+    }
+  },
+  methods:{
+    ajouterTache(){
+      this.taches.push({
+        titre: this.nouvelleTache,
+        realiser: false
+      })
+      this.nouvelleTache = '';
+    },
+    supprimerTache(index){
+      // splice permet de supprimer un élément d'un tableau
+      this.taches.splice(index, 1)
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.container {
+  max-width:500px;
+  margin: 0 auto;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 3px;
+}
+.fait{
+  text-decoration: line-through;
 }
 </style>
