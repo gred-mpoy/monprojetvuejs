@@ -15,6 +15,12 @@
         <button @click="supprimerTache(index)">Supprimer</button>
       </li>
     </ul>
+
+    <router-link to="/spa1">Aller vers Spa1</router-link>
+    <br />
+    <br />
+    <router-link to="/spa2">Aller vers Spa2</router-link>
+    <router-view></router-view>
   </div>
 </template>
 

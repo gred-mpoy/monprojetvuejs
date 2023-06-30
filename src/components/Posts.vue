@@ -2,11 +2,12 @@
     <div>
         <h1>Posts</h1>
         <ul>
-            <li v-for="post in posts" :key="post.id">
+            <li v-for="(post, index) in posts" :key="index">
                 <h3>{{ post.title }}</h3>
                 <p>{{ post.body }}</p>
-            </li>
+            </li>     
         </ul>
+        <button @click="creation">Afficher tous mes posts</button>
     </div>
 </template>
 
@@ -22,8 +23,9 @@ export default{
             posts: []
         };
     },
+    methods: {
 
-    async creation(){
+        async creation(){
         try {
 
             const response = await axios.get("https://jsonplaceholder.typicode.com/posts");
@@ -31,6 +33,8 @@ export default{
             this.posts = response.data;
         } catch (error) {
             console.log(error);
+    }
+
     }
 }
 };
